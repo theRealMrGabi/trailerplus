@@ -14,6 +14,7 @@ module.exports = {
 					'crimson-100': '#E50914',
 					'gold-100': '#FED700',
 					'gold-200': '#FCB005',
+					'gold-300': '#d4a574',
 					'blue-100': '#4169F1',
 					'red-100': '#B22229'
 				}

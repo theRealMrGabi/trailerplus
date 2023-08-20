@@ -11,7 +11,8 @@ module.exports = {
 					'@/screens': './src/screens',
 					'@/interface': './src/interface',
 					'@/contexts': './src/contexts',
-					'@/utils': './src/utils'
+					'@/utils': './src/utils',
+					'@/components': './src/components'
 				}
 			}
 		]

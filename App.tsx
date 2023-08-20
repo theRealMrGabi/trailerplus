@@ -5,13 +5,17 @@
  * @format
  */
 
-import {AppNavigation} from '@/navigation'
 import React from 'react'
 
-// import {AppNavigation} from './src'
+import { AppNavigation } from '@/navigation'
+import { Provider } from '@/contexts'
 
 const App = () => {
-	return <AppNavigation />
+	return (
+		<Provider>
+			<AppNavigation />
+		</Provider>
+	)
 }
 
 export default App

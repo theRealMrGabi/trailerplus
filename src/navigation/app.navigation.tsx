@@ -3,12 +3,12 @@ import { StatusBar } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 
-import { IHomeStack } from '@/interface'
+import { IAppStack } from '@/interface'
 import { useUtilsContext } from '@/contexts'
 import { color } from '@/utils'
 import { HomeTabNavigation } from './home.tab.navigation'
 
-const Stack = createNativeStackNavigator<IHomeStack>()
+const Stack = createNativeStackNavigator<IAppStack>()
 export const AppNavigation = () => {
 	const { isDarkMode } = useUtilsContext()
 
@@ -20,11 +20,11 @@ export const AppNavigation = () => {
 			/>
 
 			<Stack.Navigator
-				initialRouteName='HomeScreen'
+				initialRouteName='Landing'
 				screenOptions={{
 					headerShown: false
 				}}>
-				<Stack.Screen name='HomeScreen' component={HomeTabNavigation} />
+				<Stack.Screen name='Landing' component={HomeTabNavigation} />
 			</Stack.Navigator>
 		</NavigationContainer>
 	)

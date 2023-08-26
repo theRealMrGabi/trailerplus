@@ -4,6 +4,14 @@ export type IHomeTab = {
 	WatchList: undefined
 }
 
+export type IAppStack = {
+	Landing: undefined
+}
+
 export type IHomeStack = {
 	HomeScreen: undefined
+	MovieCategory: undefined
+	MovieDetails: {
+		movieID: string
+	}
 }

@@ -1,15 +1,11 @@
 import React from 'react'
 import { Text, SafeAreaView } from 'react-native'
 import classNames from 'classnames'
-// import { useRoute, RouteProp } from '@react-navigation/core'
 
 import { useUtilsContext } from '@/contexts'
-// import { IHomeStack } from '@/interface'
 
-export const MovieDetailsScreen = () => {
+export const MovieCategoryScreen = () => {
 	const { isDarkMode } = useUtilsContext()
-	// const route = useRoute<RouteProp<IHomeStack>>()
-	// const movieID = route.params?.movieID
 
 	return (
 		<SafeAreaView
@@ -17,7 +13,7 @@ export const MovieDetailsScreen = () => {
 				'bg-trailer-grey-400': isDarkMode,
 				'bg-white': !isDarkMode
 			})}>
-			<Text>MovieDetails.screen</Text>
+			<Text>MovieCategoryScreen</Text>
 		</SafeAreaView>
 	)
 }

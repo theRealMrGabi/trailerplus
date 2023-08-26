@@ -13,9 +13,10 @@ import {
 } from 'react-native-heroicons/solid'
 import classNames from 'classnames'
 
-import { HomeScreen, SearchScreen, WatchListScreen } from '@/screens'
+import { SearchScreen, WatchListScreen } from '@/screens'
 import type { IHomeTab } from '@/interface'
 import { color } from '@/utils'
+import { HomeStackNavigation } from './home.stack.navigation'
 
 const ios = Platform.OS === 'ios'
 const Tab = createBottomTabNavigator<IHomeTab>()
@@ -36,7 +37,7 @@ export const HomeTabNavigation = () => {
 			sceneContainerStyle={{
 				backgroundColor: color['grey-300']
 			}}>
-			<Tab.Screen name='Home' component={HomeScreen} />
+			<Tab.Screen name='Home' component={HomeStackNavigation} />
 			<Tab.Screen name='WatchList' component={WatchListScreen} />
 			<Tab.Screen name='Search' component={SearchScreen} />
 		</Tab.Navigator>

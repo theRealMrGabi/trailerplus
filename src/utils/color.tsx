@@ -9,6 +9,7 @@ export const color = Object.freeze({
 	'gold-100': '#FED700',
 	'gold-200': '#FCB005',
 	'gold-300': '#d4a574',
+	'gold-400': '#FFAB0F',
 	'blue-100': '#4169F1',
 	'red-100': '#B22229'
 })

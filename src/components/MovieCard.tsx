@@ -1,28 +1,49 @@
-import { color } from '@/utils'
 import React from 'react'
-import { Text, View, Image, TouchableOpacity } from 'react-native'
-import { StarIcon } from 'react-native-heroicons/solid'
+import { Text, View, Image, FlatList } from 'react-native'
+import { ChevronRightIcon } from 'react-native-heroicons/solid'
 
-export const MovieCard = () => {
+import { color } from '@/utils'
+import { useUtilsContext } from '@/contexts'
+import classNames from 'classnames'
+
+interface Props {
+	data: { title: string; image: string; id: string }[]
+	title: string
+}
+
+export const MovieCard = ({ data, title }: Props) => {
+	const { isDarkMode } = useUtilsContext()
+
 	return (
-		<TouchableOpacity
-			className='border mb-3 flex flex-row items-center pr-3'
-			style={{ gap: 15 }}>
-			<Image
-				source={require('../../assets/image/heart-stone.jpeg')}
-				className='w-[35%] rounded-lg mt-3'
-				style={{ height: 150 }}
-			/>
-
-			<View className='w-[65%]'>
-				<Text numberOfLines={0} className='capitalize text-base font-semibold'>
-					Venom Let there be carnage
-				</Text>
-				<View className='flex flex-row gap-2'>
-					<StarIcon color={color['gold-200']} size={16} />
-					<Text>6.4/10</Text>
-				</View>
+		<View className='my-4'>
+			<View className='flex flex-row gap-4 items-center mb-2'>
+				<Text className='text-trailer-gold-300 font-bold text-lg'>{title}</Text>
+				<ChevronRightIcon size={18} fill={color['gold-400']} />
 			</View>
-		</TouchableOpacity>
+
+			<FlatList
+				horizontal
+				showsHorizontalScrollIndicator={false}
+				data={data}
+				keyExtractor={item => item.id}
+				className='overflow-visible overflow-x-scroll'
+				renderItem={({ item }) => (
+					<View key={item.id}>
+						<Image
+							source={require('../../assets/image/heart-stone.jpeg')}
+							style={{ height: 120 }}
+							className='rounded w-[50vw] mr-4'
+						/>
+						<Text
+							className={classNames('font-semibold pt-1', {
+								'text-white': isDarkMode,
+								'text-trailer-black-100': !isDarkMode
+							})}>
+							{item.title}
+						</Text>
+					</View>
+				)}
+			/>
+		</View>
 	)
 }

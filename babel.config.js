@@ -12,7 +12,8 @@ module.exports = {
 					'@/interface': './src/interface',
 					'@/contexts': './src/contexts',
 					'@/utils': './src/utils',
-					'@/components': './src/components'
+					'@/components': './src/components',
+					'@/hooks': './src/hooks'
 				}
 			}
 		]

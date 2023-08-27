@@ -1,13 +1,11 @@
 import React from 'react'
 import { Text, View, Image, FlatList, TouchableOpacity } from 'react-native'
 import { ChevronRightIcon } from 'react-native-heroicons/solid'
-import { useNavigation } from '@react-navigation/core'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import classNames from 'classnames'
 
+import { useHomeStackNavigation } from '@/hooks'
 import { color } from '@/utils'
 import { useUtilsContext } from '@/contexts'
-import { IHomeStack } from '@/interface'
 
 interface Props {
 	data: { title: string; image: string; id: string }[]
@@ -16,7 +14,7 @@ interface Props {
 
 export const MovieCard = ({ data, title }: Props) => {
 	const { isDarkMode } = useUtilsContext()
-	const navigation = useNavigation<NativeStackNavigationProp<IHomeStack>>()
+	const { navigation } = useHomeStackNavigation()
 
 	return (
 		<View className='my-4'>

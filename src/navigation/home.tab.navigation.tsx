@@ -19,6 +19,7 @@ import { color } from '@/utils'
 import { HomeStackNavigation } from './home.stack.navigation'
 
 const ios = Platform.OS === 'ios'
+
 const Tab = createBottomTabNavigator<IHomeTab>()
 
 export const HomeTabNavigation = () => {

@@ -12,7 +12,7 @@ import { BellIcon } from 'react-native-heroicons/outline'
 import Swiper from 'react-native-swiper'
 
 import { useUtilsContext } from '@/contexts'
-import { color } from '@/utils'
+import { HeroData, color } from '@/utils'
 import { BrandIdentity, MovieCard, HeroCard } from '@/components'
 
 export const HomeScreen = () => {
@@ -80,31 +80,3 @@ export const HomeScreen = () => {
 		</SafeAreaView>
 	)
 }
-
-const HeroData = [
-	{
-		title: 'Heart stone',
-		image: '../../assets/image/heart-stone.jpeg',
-		id: 'abc'
-	},
-	{
-		title: 'Calling out',
-		image: '../../assets/image/heart-stone.jpeg',
-		id: 'abcd'
-	},
-	{
-		title: 'Prison Break',
-		image: '../../assets/image/heart-stone.jpeg',
-		id: 'abce'
-	},
-	{
-		title: 'Shallow Mind',
-		image: '../../assets/image/heart-stone.jpeg',
-		id: 'abcf'
-	},
-	{
-		title: 'Enemy of progress',
-		image: '../../assets/image/heart-stone.jpeg',
-		id: 'abcg'
-	}
-]

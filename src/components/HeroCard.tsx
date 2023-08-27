@@ -1,16 +1,14 @@
 import React from 'react'
 import { Image, Text, TouchableOpacity } from 'react-native'
-import { useNavigation } from '@react-navigation/core'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 
-import { IHomeStack } from '@/interface'
+import { useHomeStackNavigation } from '@/hooks'
 
 interface Props {
 	title: string
 }
 
 export const HeroCard = ({ title }: Props) => {
-	const navigation = useNavigation<NativeStackNavigationProp<IHomeStack>>()
+	const { navigation } = useHomeStackNavigation()
 
 	return (
 		<TouchableOpacity

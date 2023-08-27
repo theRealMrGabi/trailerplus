@@ -9,17 +9,18 @@ import {
 import classNames from 'classnames'
 import { Bars3CenterLeftIcon } from 'react-native-heroicons/solid'
 import { BellIcon } from 'react-native-heroicons/outline'
+import Swiper from 'react-native-swiper'
 
 import { useUtilsContext } from '@/contexts'
-import { color } from '@/utils'
-import { BrandIdentity } from '@/components'
+import { HeroData, color } from '@/utils'
+import { BrandIdentity, MovieCard, HeroCard } from '@/components'
 
 export const HomeScreen = () => {
 	const { isDarkMode } = useUtilsContext()
 
 	return (
 		<SafeAreaView
-			className={classNames('h-full overflow-y-scroll', {
+			className={classNames('h-full', {
 				'bg-trailer-grey-400': isDarkMode,
 				'bg-white': !isDarkMode
 			})}>
@@ -44,29 +45,37 @@ export const HomeScreen = () => {
 			</View>
 
 			<ScrollView>
-				<View>
+				<View className='px-4'>
 					<Text
-						className={classNames('', {
-							'text-white': isDarkMode,
-							'text-trailer-grey-200': !isDarkMode
+						className={classNames('pt-2 text-2xl font-bold', {
+							'text-trailer-grey-500': isDarkMode,
+							'text-trailer-black-100': !isDarkMode
 						})}>
-						Whereas disregard and contempt for human rights have resulted
-						HomeScreen Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Cum omnis tenetur fugit in eius impedit, sequi natus, tempore quos
-						voluptatibus temporibus quam. Praesentium reprehenderit,
-						consequuntur vel molestiae doloremque molestias enim!
+						Now showing
 					</Text>
 
-					{/**
-					 * 1. Movie Card
-					 * 2. Trending Movies
-					 * 3. Trending Tv Shows
-					 * 4. All Time Top Rated
-					 * 5. Popular Movies
-					 * 6. Upcoming movies
-					 * 7. Popular TV
-					 */}
+					<View className='mt-5 h-[25vh]'>
+						<Swiper showsButtons={false} showsPagination={false}>
+							{HeroData.map((item, i) => (
+								<View className='flex w-full gap-4' key={i}>
+									<HeroCard {...item} />
+								</View>
+							))}
+						</Swiper>
+					</View>
 				</View>
+
+				<ScrollView
+					className='pl-4'
+					showsVerticalScrollIndicator={false}
+					showsHorizontalScrollIndicator={false}>
+					<MovieCard data={HeroData} title='Trending Movies' />
+					<MovieCard data={HeroData} title='Popular Movies' />
+					<MovieCard data={HeroData} title='Upcoming Movies' />
+					<MovieCard data={HeroData} title='Trending TV' />
+					<MovieCard data={HeroData} title='Popular TV' />
+					<MovieCard data={HeroData} title='All Time Top Rated' />
+				</ScrollView>
 			</ScrollView>
 		</SafeAreaView>
 	)

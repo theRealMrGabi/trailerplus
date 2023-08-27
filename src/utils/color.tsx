@@ -1,4 +1,5 @@
 export const color = Object.freeze({
+	'white-100': '#f5f5f5',
 	'black-100': '#1F3B4D',
 	'grey-100': '#121212',
 	'grey-150': '#cccccc',
@@ -8,6 +9,8 @@ export const color = Object.freeze({
 	'grey-500': '#D8DCD6',
 	'grey-600': '#9DBCD4',
 	'grey-700': '#D8D8D8',
+	'grey-800': '#9C9C9C',
+	'grey-900': 'rgba(255, 255, 255, 0.20)',
 	'crimson-100': '#E50914',
 	'ice-100': '#BDF6FE',
 	'gold-100': '#FED700',

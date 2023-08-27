@@ -20,7 +20,7 @@ export const HomeScreen = () => {
 
 	return (
 		<SafeAreaView
-			className={classNames('h-full overflow-y-scroll', {
+			className={classNames('h-full', {
 				'bg-trailer-grey-400': isDarkMode,
 				'bg-white': !isDarkMode
 			})}>

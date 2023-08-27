@@ -53,3 +53,66 @@ export const CastData = [
 		id: 'abcg'
 	}
 ]
+
+export const CategoryData = [
+	{
+		name: 'Heart stone',
+		image: '../../assets/image/heart-stone.jpeg',
+		id: 'abc',
+		rating: 6.5
+	},
+	{
+		name: 'Heart stone',
+		image: '../../assets/image/heart-stone.jpeg',
+		id: 'abcd',
+		rating: 6.5
+	},
+	{
+		name: 'Heart stone',
+		image: '../../assets/image/heart-stone.jpeg',
+		id: 'abce',
+		rating: 6.5
+	},
+	{
+		name: 'Heart stone',
+		image: '../../assets/image/heart-stone.jpeg',
+		id: 'abcf',
+		rating: 6.5
+	},
+	{
+		name: 'Heart stone',
+		image: '../../assets/image/heart-stone.jpeg',
+		id: 'abcg',
+		rating: 6.5
+	},
+	{
+		name: 'Heart stone',
+		image: '../../assets/image/heart-stone.jpeg',
+		id: 'abch',
+		rating: 6.5
+	},
+	{
+		name: 'Heart stone',
+		image: '../../assets/image/heart-stone.jpeg',
+		id: 'abci',
+		rating: 6.5
+	},
+	{
+		name: 'Heart stone',
+		image: '../../assets/image/heart-stone.jpeg',
+		id: 'abcj',
+		rating: 6.5
+	},
+	{
+		name: 'Heart stone',
+		image: '../../assets/image/heart-stone.jpeg',
+		id: 'abckj',
+		rating: 6.5
+	},
+	{
+		name: 'Heart stone',
+		image: '../../assets/image/heart-stone.jpeg',
+		id: 'abchl',
+		rating: 6.5
+	}
+]

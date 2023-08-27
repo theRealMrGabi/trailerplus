@@ -9,11 +9,10 @@ import {
 } from 'react-native'
 import classNames from 'classnames'
 import { BookmarkIcon, ChevronLeftIcon } from 'react-native-heroicons/outline'
-import { StarIcon } from 'react-native-heroicons/solid'
 
 import { useUtilsContext } from '@/contexts'
 import { color, CastData } from '@/utils'
-import { Pill } from '@/components'
+import { Pill, Rating } from '@/components'
 import { useHomeStackNavigation } from '@/hooks'
 
 export const MovieDetailsScreen = () => {
@@ -23,7 +22,7 @@ export const MovieDetailsScreen = () => {
 	// const movieID = route.params?.movieID
 
 	return (
-		<View style={{ flex: 1 }}>
+		<View className='flex-1'>
 			<View className='relative'>
 				<ImageBackground
 					source={require('../../assets/image/heart-stone.jpeg')}
@@ -56,16 +55,7 @@ export const MovieDetailsScreen = () => {
 					/>
 				</View>
 
-				<View className='flex flex-row items-center gap-x-3 my-2'>
-					<StarIcon color={color['gold-100']} size={20} />
-					<Text
-						className={classNames('text-xs font-medium', {
-							'text-trailer-ice-100': isDarkMode,
-							'text-trailer-grey-800': !isDarkMode
-						})}>
-						9.1/10 IMDb
-					</Text>
-				</View>
+				<Rating rating={9.1} />
 
 				<View className='flex flex-row my-2 flex-wrap' style={{ gap: 12 }}>
 					{/* eslint-disable-next-line no-unused-vars */}

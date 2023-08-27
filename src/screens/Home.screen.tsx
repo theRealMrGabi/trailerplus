@@ -9,14 +9,30 @@ import {
 import classNames from 'classnames'
 import { Bars3CenterLeftIcon } from 'react-native-heroicons/solid'
 import { BellIcon } from 'react-native-heroicons/outline'
+import { useQuery } from '@tanstack/react-query'
 import Swiper from 'react-native-swiper'
 
 import { useUtilsContext } from '@/contexts'
 import { HeroData, color } from '@/utils'
-import { BrandIdentity, MovieCard, HeroCard } from '@/components'
+import {
+	BrandIdentity,
+	MovieCard,
+	HeroCard,
+	HeroCardSkeleton
+} from '@/components'
+import { NowShowingMoviesApi, moviesQueryKeys } from '@/api'
 
 export const HomeScreen = () => {
 	const { isDarkMode } = useUtilsContext()
+
+	const { data: nowShowing, isLoading: nowShowingLoading } = useQuery({
+		queryKey: [moviesQueryKeys.nowShowingMovies],
+		queryFn: () => NowShowingMoviesApi({}),
+		select: response => {
+			const slice = response.results.slice(0, 14)
+			return slice
+		}
+	})
 
 	return (
 		<SafeAreaView
@@ -55,13 +71,17 @@ export const HomeScreen = () => {
 					</Text>
 
 					<View className='mt-5 h-[25vh]'>
-						<Swiper showsButtons={false} showsPagination={false}>
-							{HeroData.map((item, i) => (
-								<View className='flex w-full gap-4' key={i}>
-									<HeroCard {...item} />
-								</View>
-							))}
-						</Swiper>
+						{nowShowingLoading ? (
+							<HeroCardSkeleton />
+						) : (
+							<Swiper showsButtons={false} showsPagination={false}>
+								{nowShowing?.map((item, i) => (
+									<View className='flex w-full gap-4' key={i}>
+										<HeroCard {...item} />
+									</View>
+								))}
+							</Swiper>
+						)}
 					</View>
 				</View>
 

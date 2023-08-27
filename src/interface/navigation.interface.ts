@@ -12,6 +12,6 @@ export type IHomeStack = {
 	HomeScreen: undefined
 	MovieCategory: undefined
 	MovieDetails: {
-		movieID: string
+		movieID: number
 	}
 }

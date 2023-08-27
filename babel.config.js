@@ -13,8 +13,16 @@ module.exports = {
 					'@/contexts': './src/contexts',
 					'@/utils': './src/utils',
 					'@/components': './src/components',
-					'@/hooks': './src/hooks'
+					'@/hooks': './src/hooks',
+					'@/api': './src/api'
 				}
+			}
+		],
+		[
+			'module:react-native-dotenv',
+			{
+				moduleName: '@env',
+				path: '.env'
 			}
 		]
 	]

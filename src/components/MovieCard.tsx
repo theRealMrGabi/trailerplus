@@ -38,7 +38,7 @@ export const MovieCard = ({ data, title }: Props) => {
 						activeOpacity={0.7}
 						onPress={() =>
 							navigation.navigate('MovieDetails', {
-								movieID: 'list'
+								movieID: 74884
 							})
 						}>
 						<Image

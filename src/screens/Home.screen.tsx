@@ -13,23 +13,91 @@ import { useQuery } from '@tanstack/react-query'
 import Swiper from 'react-native-swiper'
 
 import { useUtilsContext } from '@/contexts'
-import { HeroData, color } from '@/utils'
+import { color } from '@/utils'
 import {
 	BrandIdentity,
 	MovieCard,
+	SeriesCard,
 	HeroCard,
 	HeroCardSkeleton
 } from '@/components'
-import { NowShowingMoviesApi, moviesQueryKeys } from '@/api'
+import {
+	moviesQueryKeys,
+	MoviesApi,
+	URL,
+	SeriesApi,
+	tvSeriesQueryKeys,
+	TVSeriesURL
+} from '@/api'
 
 export const HomeScreen = () => {
 	const { isDarkMode } = useUtilsContext()
 
-	const { data: nowShowing, isLoading: nowShowingLoading } = useQuery({
+	const { data: nowShowingMovies, isLoading: nowShowingLoading } = useQuery({
 		queryKey: [moviesQueryKeys.nowShowingMovies],
-		queryFn: () => NowShowingMoviesApi({}),
+		queryFn: () => MoviesApi(URL.nowShowing),
 		select: response => {
 			const slice = response.results.slice(0, 14)
+			return slice
+		}
+	})
+
+	const { data: trendingMovies, isLoading: trendingMoviesLoading } = useQuery({
+		queryKey: [moviesQueryKeys.trendingMovies],
+		queryFn: () => MoviesApi(URL.trendingMovies),
+		select: response => {
+			const slice = response.results.slice(0, 10)
+			return slice
+		}
+	})
+
+	const { data: popularMovies, isLoading: popularMoviesLoading } = useQuery({
+		queryKey: [moviesQueryKeys.popularMovies],
+		queryFn: () => MoviesApi(URL.popularMovies),
+		select: response => {
+			const slice = response.results.slice(0, 10)
+			return slice
+		}
+	})
+
+	const { data: upcomingMovies, isLoading: upcomingMoviesLoading } = useQuery({
+		queryKey: [moviesQueryKeys.upcomingMovies],
+		queryFn: () => MoviesApi(URL.upcomingMovies),
+		select: response => {
+			const slice = response.results.slice(0, 10)
+			return slice
+		}
+	})
+
+	const { data: trendingTVSeries, isLoading: trendingTVSeriesLoading } =
+		useQuery({
+			queryKey: [tvSeriesQueryKeys.trendingTVSeries],
+			queryFn: () => SeriesApi(TVSeriesURL.trendingTVSeries),
+			select: response => {
+				const slice = response.results.slice(0, 10)
+				return slice
+			}
+		})
+
+	const { data: popularTVSeries, isLoading: popularTVSeriesLoading } = useQuery(
+		{
+			queryKey: [tvSeriesQueryKeys.popularTVSeries],
+			queryFn: () => SeriesApi(TVSeriesURL.popularTVSeries),
+			select: response => {
+				const slice = response.results.slice(0, 10)
+				return slice
+			}
+		}
+	)
+
+	const {
+		data: allTimeTopRatedMovies,
+		isLoading: allTimeTopRatedMoviesLoading
+	} = useQuery({
+		queryKey: [moviesQueryKeys.allTimeTopRatedMovies],
+		queryFn: () => MoviesApi(URL.allTimeTopRatedMovies),
+		select: response => {
+			const slice = response.results.slice(0, 10)
 			return slice
 		}
 	})
@@ -75,7 +143,7 @@ export const HomeScreen = () => {
 							<HeroCardSkeleton />
 						) : (
 							<Swiper showsButtons={false} showsPagination={false}>
-								{nowShowing?.map((item, i) => (
+								{nowShowingMovies?.map((item, i) => (
 									<View className='flex w-full gap-4' key={i}>
 										<HeroCard {...item} />
 									</View>
@@ -89,12 +157,36 @@ export const HomeScreen = () => {
 					className='pl-4'
 					showsVerticalScrollIndicator={false}
 					showsHorizontalScrollIndicator={false}>
-					<MovieCard data={HeroData} title='Trending Movies' />
-					<MovieCard data={HeroData} title='Popular Movies' />
-					<MovieCard data={HeroData} title='Upcoming Movies' />
-					<MovieCard data={HeroData} title='Trending TV' />
-					<MovieCard data={HeroData} title='Popular TV' />
-					<MovieCard data={HeroData} title='All Time Top Rated' />
+					<MovieCard
+						movie={trendingMovies!}
+						title='trending'
+						loading={trendingMoviesLoading}
+					/>
+					<MovieCard
+						movie={popularMovies!}
+						title='popular'
+						loading={popularMoviesLoading}
+					/>
+					<MovieCard
+						movie={upcomingMovies!}
+						title='upcoming'
+						loading={upcomingMoviesLoading}
+					/>
+					<SeriesCard
+						series={trendingTVSeries!}
+						title='trending'
+						loading={trendingTVSeriesLoading}
+					/>
+					<SeriesCard
+						series={popularTVSeries!}
+						title='popular'
+						loading={popularTVSeriesLoading}
+					/>
+					<MovieCard
+						movie={allTimeTopRatedMovies!}
+						title='all time top rated'
+						loading={allTimeTopRatedMoviesLoading}
+					/>
 				</ScrollView>
 			</ScrollView>
 		</SafeAreaView>

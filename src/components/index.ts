@@ -1,5 +1,7 @@
 export { BrandIdentity } from './BrandIdentity'
-export { HeroCard, HeroCardSkeleton } from './HeroCard'
+export { HeroCard } from './HeroCard'
 export { MovieCard } from './MovieCard'
 export { Pill } from './Pill'
 export { Rating } from './Rating'
+export { SeriesCard } from './SeriesCard'
+export * from './Skeleton'

@@ -1,15 +1,25 @@
 import { _axios } from '@/api'
-import { NowShowingMovies } from '@/interface'
+import { MoviesResponse } from '@/interface'
 
 export const moviesQueryKeys = Object.freeze({
-	nowShowingMovies: 'nowShowingMovies'
+	nowShowingMovies: 'nowShowingMovies',
+	trendingMovies: 'trendingMovies',
+	popularMovies: 'popularMovies',
+	upcomingMovies: 'upcomingMovies',
+	allTimeTopRatedMovies: 'allTimeTopRatedMovies'
 })
 
-export const NowShowingMoviesApi = async ({ page = 1 }: { page?: number }) => {
+export const URL = {
+	nowShowing: 'movie/now_playing?language=en-US&page=1',
+	trendingMovies: 'trending/movie/week?language=en-US&page=1',
+	popularMovies: 'movie/popular?language=en-US&page=1',
+	upcomingMovies: 'movie/upcoming?language=en-US&page=1',
+	allTimeTopRatedMovies: 'movie/top_rated?language=en-US&page=1'
+}
+
+export const MoviesApi = async (url: string) => {
 	try {
-		const response: NowShowingMovies = await _axios.get(
-			`movie/now_playing?language=en-US&page=${page}`
-		)
+		const response: MoviesResponse = await _axios.get(url)
 		return response
 	} catch (error) {
 		throw error

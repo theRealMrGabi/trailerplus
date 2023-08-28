@@ -34,9 +34,15 @@ const apiResource = () => {
 		},
 		(error: AxiosError) => {
 			if (error?.response === undefined) {
-				throw new Error('Unable to connect to internet')
+				throw new Error('Unable to connect to resource')
 			} else {
-				return Promise.reject(error)
+				const errorData = error.response?.data as unknown as {
+					status_message: string
+					status_code: number
+					success: boolean
+				}
+
+				return Promise.reject(errorData?.status_message)
 			}
 		}
 	)

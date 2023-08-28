@@ -1,6 +1,5 @@
 import React from 'react'
 import { Image, Text, TouchableOpacity } from 'react-native'
-import ContentLoader, { Rect } from 'react-content-loader/native'
 
 import { useHomeStackNavigation } from '@/hooks'
 import { Movie } from '@/interface'
@@ -27,19 +26,5 @@ export const HeroCard = ({ title, backdrop_path, id }: Movie) => {
 				{title}
 			</Text>
 		</TouchableOpacity>
-	)
-}
-
-export const HeroCardSkeleton = () => {
-	return (
-		<ContentLoader
-			speed={2}
-			width={350}
-			height={200}
-			backgroundColor='#f0f0f0'
-			foregroundColor='#dedede'>
-			<Rect x='0' y='0' rx='10' ry='10' width='400' height='160' />
-			<Rect x='0' y='170' rx='4' ry='4' width='300' height='9' />
-		</ContentLoader>
 	)
 }

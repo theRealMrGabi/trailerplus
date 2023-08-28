@@ -13,10 +13,11 @@ export interface Movie {
 	video: boolean
 	vote_average: number
 	vote_count: number
+	media_type?: string
 }
 
-export interface NowShowingMovies {
-	dates: {
+export interface MoviesResponse {
+	dates?: {
 		maximum: string
 		minimum: string
 	}

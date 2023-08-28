@@ -6,16 +6,16 @@ import classNames from 'classnames'
 import { useHomeStackNavigation } from '@/hooks'
 import { color } from '@/utils'
 import { useUtilsContext } from '@/contexts'
-import { Movie } from '@/interface'
+import { TVSeries } from '@/interface'
 import { MovieCardSkeleton } from '@/components'
 
 interface Props {
-	movie: Movie[]
+	series: TVSeries[]
 	title: 'trending' | 'popular' | 'upcoming' | 'all time top rated'
 	loading: boolean
 }
 
-export const MovieCard = ({ movie, title, loading }: Props) => {
+export const SeriesCard = ({ series, title, loading }: Props) => {
 	const { isDarkMode } = useUtilsContext()
 	const { navigation } = useHomeStackNavigation()
 
@@ -26,7 +26,7 @@ export const MovieCard = ({ movie, title, loading }: Props) => {
 				onPress={() => navigation.navigate('MovieCategory')}
 				activeOpacity={0.5}>
 				<Text className='text-trailer-gold-300 font-bold text-lg capitalize'>
-					{title} movies
+					{title} TV shows
 				</Text>
 				<ChevronRightIcon size={18} fill={color['gold-400']} />
 			</TouchableOpacity>
@@ -37,7 +37,7 @@ export const MovieCard = ({ movie, title, loading }: Props) => {
 				<FlatList
 					horizontal
 					showsHorizontalScrollIndicator={false}
-					data={movie}
+					data={series}
 					keyExtractor={item => item.id.toString()}
 					className='overflow-visible overflow-x-scroll'
 					renderItem={({ item }) => (
@@ -62,7 +62,7 @@ export const MovieCard = ({ movie, title, loading }: Props) => {
 									'text-white': isDarkMode,
 									'text-trailer-black-100': !isDarkMode
 								})}>
-								{item.title}
+								{item.name}
 							</Text>
 						</TouchableOpacity>
 					)}

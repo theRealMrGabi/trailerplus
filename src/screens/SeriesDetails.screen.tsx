@@ -13,31 +13,31 @@ import { useQuery } from '@tanstack/react-query'
 import ContentLoader, { Rect } from 'react-content-loader/native'
 import { useRoute } from '@react-navigation/core'
 
-import { MovieDetailApi, MovieCreditsApi, moviesQueryKeys } from '@/api'
+import { SeriesDetailsApi, tvSeriesQueryKeys, SeriesCreditsApi } from '@/api'
 import { useUtilsContext } from '@/contexts'
-import { color, _formatNumber, _convertMinutesToHoursAndMinutes } from '@/utils'
+import { color, _formatNumber } from '@/utils'
 import { Pill, Rating } from '@/components'
 import { useHomeStackNavigation } from '@/hooks'
-import { MovieDetails, HomeStackRouteProps } from '@/interface'
+import { HomeStackRouteProps, TVSeriesDetails } from '@/interface'
 
-export const MovieDetailsScreen = () => {
+export const SeriesDetailsScreen = () => {
 	const { isDarkMode } = useUtilsContext()
 	const { navigation } = useHomeStackNavigation()
 
-	const route = useRoute<HomeStackRouteProps<'MovieDetails'>>()
+	const route = useRoute<HomeStackRouteProps<'SeriesDetails'>>()
 
-	const movieID = route.params?.movieID
+	const seriesID = route.params?.seriesID
 
-	const { data: movie, isLoading: movieDetailsLoading } = useQuery({
-		queryKey: [moviesQueryKeys.movieDetails, movieID],
-		queryFn: () => MovieDetailApi(movieID!),
-		enabled: !!movieID
+	const { data: series, isLoading: seriesDetailsLoading } = useQuery({
+		queryKey: [tvSeriesQueryKeys.seriesDetails, seriesID],
+		queryFn: () => SeriesDetailsApi(seriesID!),
+		enabled: !!seriesID
 	})
 
-	const { data: movieCredits } = useQuery({
-		queryKey: [moviesQueryKeys.movieCredits, movieID],
-		queryFn: () => MovieCreditsApi(movieID!),
-		enabled: !!movieID
+	const { data: seriesCredits } = useQuery({
+		queryKey: [tvSeriesQueryKeys.seriesCredits, seriesID],
+		queryFn: () => SeriesCreditsApi(seriesID!),
+		enabled: !!seriesID
 	})
 
 	return (
@@ -46,7 +46,7 @@ export const MovieDetailsScreen = () => {
 				'bg-trailer-grey-400': isDarkMode,
 				'bg-white': !isDarkMode
 			})}>
-			{movieDetailsLoading ? (
+			{seriesDetailsLoading ? (
 				<ContentLoader
 					width={450}
 					height={400}
@@ -65,7 +65,7 @@ export const MovieDetailsScreen = () => {
 					<View className='relative'>
 						<ImageBackground
 							source={{
-								uri: `https://image.tmdb.org/t/p/w1280${movie?.backdrop_path}`
+								uri: `https://image.tmdb.org/t/p/w1280${series?.backdrop_path}`
 							}}
 							style={{ height: 300 }}
 						/>
@@ -78,9 +78,9 @@ export const MovieDetailsScreen = () => {
 					</View>
 
 					<FlatList
-						data={movieCredits?.cast}
+						data={seriesCredits?.cast}
 						keyExtractor={item => item.id.toString()}
-						ListHeaderComponent={<MovieDetailsHeader movie={movie!} />}
+						ListHeaderComponent={<SeriesDetailsHeader series={series!} />}
 						numColumns={3}
 						contentContainerStyle={{
 							backgroundColor: isDarkMode ? '#1F3B4D' : '#ffffff'
@@ -133,7 +133,7 @@ export const MovieDetailsScreen = () => {
 	)
 }
 
-const MovieDetailsHeader = ({ movie }: { movie: MovieDetails }) => {
+const SeriesDetailsHeader = ({ series }: { series: TVSeriesDetails }) => {
 	const { isDarkMode } = useUtilsContext()
 
 	return (
@@ -148,7 +148,7 @@ const MovieDetailsHeader = ({ movie }: { movie: MovieDetails }) => {
 						'text-trailer-grey-150': isDarkMode,
 						'text-trailer-black-100': !isDarkMode
 					})}>
-					{movie?.title}
+					{series.name}
 				</Text>
 				<BookmarkIcon
 					size={21}
@@ -156,23 +156,23 @@ const MovieDetailsHeader = ({ movie }: { movie: MovieDetails }) => {
 				/>
 			</View>
 
-			<Rating rating={movie?.vote_average} />
+			<Rating rating={series?.vote_average} />
 
 			<View className='flex flex-row my-2 flex-wrap' style={{ gap: 12 }}>
-				{movie?.genres?.map(genre => (
+				{series?.genres?.map(genre => (
 					<Pill key={genre.id} value={genre.name} />
 				))}
 			</View>
 
 			<View className='flex flex-row justify-between items-center my-3'>
 				<View>
-					<Text className='text-trailer-grey-800'>Length</Text>
+					<Text className='text-trailer-grey-800'>Season(s)</Text>
 					<Text
-						className={classNames('pt-1', {
+						className={classNames('pt-1 text-center', {
 							'text-trailer-white-100 font-semibold': isDarkMode,
 							'text-black font-medium': !isDarkMode
 						})}>
-						{_convertMinutesToHoursAndMinutes(movie?.runtime!)}
+						{series?.number_of_seasons}
 					</Text>
 				</View>
 
@@ -183,18 +183,18 @@ const MovieDetailsHeader = ({ movie }: { movie: MovieDetails }) => {
 							'text-trailer-white-100 font-semibold': isDarkMode,
 							'text-black font-medium': !isDarkMode
 						})}>
-						{movie?.spoken_languages[0].english_name}
+						{series?.spoken_languages[0]?.english_name}
 					</Text>
 				</View>
 
 				<View>
-					<Text className='text-trailer-grey-800'>Revenue</Text>
+					<Text className='text-trailer-grey-800'>Episodes</Text>
 					<Text
-						className={classNames('pt-1', {
+						className={classNames('pt-1 text-center', {
 							'text-trailer-white-100 font-semibold': isDarkMode,
 							'text-black font-medium': !isDarkMode
 						})}>
-						${_formatNumber(movie?.revenue!)}
+						{_formatNumber(series?.number_of_episodes)}
 					</Text>
 				</View>
 			</View>
@@ -212,7 +212,7 @@ const MovieDetailsHeader = ({ movie }: { movie: MovieDetails }) => {
 						'text-trailer-white-100': isDarkMode,
 						'text-trailer-grey-800': !isDarkMode
 					})}>
-					{movie?.overview}
+					{series?.overview}
 				</Text>
 			</View>
 

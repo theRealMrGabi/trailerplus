@@ -12,11 +12,38 @@ import { BellIcon } from 'react-native-heroicons/outline'
 import Swiper from 'react-native-swiper'
 
 import { useUtilsContext } from '@/contexts'
-import { HeroData, color } from '@/utils'
-import { BrandIdentity, MovieCard, HeroCard } from '@/components'
+import { color } from '@/utils'
+import {
+	BrandIdentity,
+	MovieCard,
+	SeriesCard,
+	HeroCard,
+	HeroCardSkeleton
+} from '@/components'
+import { useMoviesApi, useSeriesApi } from '@/hooks'
 
 export const HomeScreen = () => {
 	const { isDarkMode } = useUtilsContext()
+
+	const {
+		nowShowingMovies,
+		nowShowingLoading,
+		trendingMovies,
+		trendingMoviesLoading,
+		popularMovies,
+		popularMoviesLoading,
+		upcomingMovies,
+		upcomingMoviesLoading,
+		allTimeTopRatedMovies,
+		allTimeTopRatedMoviesLoading
+	} = useMoviesApi()
+
+	const {
+		trendingTVSeries,
+		trendingTVSeriesLoading,
+		popularTVSeries,
+		popularTVSeriesLoading
+	} = useSeriesApi()
 
 	return (
 		<SafeAreaView
@@ -55,13 +82,17 @@ export const HomeScreen = () => {
 					</Text>
 
 					<View className='mt-5 h-[25vh]'>
-						<Swiper showsButtons={false} showsPagination={false}>
-							{HeroData.map((item, i) => (
-								<View className='flex w-full gap-4' key={i}>
-									<HeroCard {...item} />
-								</View>
-							))}
-						</Swiper>
+						{nowShowingLoading ? (
+							<HeroCardSkeleton />
+						) : (
+							<Swiper showsButtons={false} showsPagination={false}>
+								{nowShowingMovies?.map((item, i) => (
+									<View className='flex w-full gap-4' key={i}>
+										<HeroCard {...item} />
+									</View>
+								))}
+							</Swiper>
+						)}
 					</View>
 				</View>
 
@@ -69,12 +100,36 @@ export const HomeScreen = () => {
 					className='pl-4'
 					showsVerticalScrollIndicator={false}
 					showsHorizontalScrollIndicator={false}>
-					<MovieCard data={HeroData} title='Trending Movies' />
-					<MovieCard data={HeroData} title='Popular Movies' />
-					<MovieCard data={HeroData} title='Upcoming Movies' />
-					<MovieCard data={HeroData} title='Trending TV' />
-					<MovieCard data={HeroData} title='Popular TV' />
-					<MovieCard data={HeroData} title='All Time Top Rated' />
+					<MovieCard
+						movie={trendingMovies!}
+						title='trending'
+						loading={trendingMoviesLoading}
+					/>
+					<MovieCard
+						movie={popularMovies!}
+						title='popular'
+						loading={popularMoviesLoading}
+					/>
+					<MovieCard
+						movie={upcomingMovies!}
+						title='upcoming'
+						loading={upcomingMoviesLoading}
+					/>
+					<SeriesCard
+						series={trendingTVSeries!}
+						title='trending'
+						loading={trendingTVSeriesLoading}
+					/>
+					<SeriesCard
+						series={popularTVSeries!}
+						title='popular'
+						loading={popularTVSeriesLoading}
+					/>
+					<MovieCard
+						movie={allTimeTopRatedMovies!}
+						title='all time top rated'
+						loading={allTimeTopRatedMoviesLoading}
+					/>
 				</ScrollView>
 			</ScrollView>
 		</SafeAreaView>

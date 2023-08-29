@@ -1,3 +1,5 @@
+import type { RouteProp } from '@react-navigation/native'
+
 export type IHomeTab = {
 	Home: undefined
 	Search: undefined
@@ -14,4 +16,12 @@ export type IHomeStack = {
 	MovieDetails: {
 		movieID: number
 	}
+	SeriesDetails: {
+		seriesID: number
+	}
 }
+
+export type HomeStackRouteProps<RouteName extends keyof IHomeStack> = RouteProp<
+	IHomeStack,
+	RouteName
+>

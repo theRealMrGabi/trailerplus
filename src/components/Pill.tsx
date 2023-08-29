@@ -4,7 +4,7 @@ import classNames from 'classnames'
 
 import { useUtilsContext } from '@/contexts'
 
-export const Pill = () => {
+export const Pill = ({ value }: { value: string }) => {
 	const { isDarkMode } = useUtilsContext()
 
 	return (
@@ -18,7 +18,7 @@ export const Pill = () => {
 					'text-[#DBE3FF]': isDarkMode,
 					'text-[#88a4e8]': !isDarkMode
 				})}>
-				Plus
+				{value}
 			</Text>
 		</View>
 	)

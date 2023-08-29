@@ -9,7 +9,6 @@ import {
 import classNames from 'classnames'
 import { Bars3CenterLeftIcon } from 'react-native-heroicons/solid'
 import { BellIcon } from 'react-native-heroicons/outline'
-import { useQuery } from '@tanstack/react-query'
 import Swiper from 'react-native-swiper'
 
 import { useUtilsContext } from '@/contexts'
@@ -21,86 +20,30 @@ import {
 	HeroCard,
 	HeroCardSkeleton
 } from '@/components'
-import {
-	moviesQueryKeys,
-	MoviesApi,
-	URL,
-	SeriesApi,
-	tvSeriesQueryKeys,
-	TVSeriesURL
-} from '@/api'
+import { useMoviesApi, useSeriesApi } from '@/hooks'
 
 export const HomeScreen = () => {
 	const { isDarkMode } = useUtilsContext()
 
-	const { data: nowShowingMovies, isLoading: nowShowingLoading } = useQuery({
-		queryKey: [moviesQueryKeys.nowShowingMovies],
-		queryFn: () => MoviesApi(URL.nowShowing),
-		select: response => {
-			const slice = response.results.slice(0, 14)
-			return slice
-		}
-	})
-
-	const { data: trendingMovies, isLoading: trendingMoviesLoading } = useQuery({
-		queryKey: [moviesQueryKeys.trendingMovies],
-		queryFn: () => MoviesApi(URL.trendingMovies),
-		select: response => {
-			const slice = response.results.slice(0, 10)
-			return slice
-		}
-	})
-
-	const { data: popularMovies, isLoading: popularMoviesLoading } = useQuery({
-		queryKey: [moviesQueryKeys.popularMovies],
-		queryFn: () => MoviesApi(URL.popularMovies),
-		select: response => {
-			const slice = response.results.slice(0, 10)
-			return slice
-		}
-	})
-
-	const { data: upcomingMovies, isLoading: upcomingMoviesLoading } = useQuery({
-		queryKey: [moviesQueryKeys.upcomingMovies],
-		queryFn: () => MoviesApi(URL.upcomingMovies),
-		select: response => {
-			const slice = response.results.slice(0, 10)
-			return slice
-		}
-	})
-
-	const { data: trendingTVSeries, isLoading: trendingTVSeriesLoading } =
-		useQuery({
-			queryKey: [tvSeriesQueryKeys.trendingTVSeries],
-			queryFn: () => SeriesApi(TVSeriesURL.trendingTVSeries),
-			select: response => {
-				const slice = response.results.slice(0, 10)
-				return slice
-			}
-		})
-
-	const { data: popularTVSeries, isLoading: popularTVSeriesLoading } = useQuery(
-		{
-			queryKey: [tvSeriesQueryKeys.popularTVSeries],
-			queryFn: () => SeriesApi(TVSeriesURL.popularTVSeries),
-			select: response => {
-				const slice = response.results.slice(0, 10)
-				return slice
-			}
-		}
-	)
+	const {
+		nowShowingMovies,
+		nowShowingLoading,
+		trendingMovies,
+		trendingMoviesLoading,
+		popularMovies,
+		popularMoviesLoading,
+		upcomingMovies,
+		upcomingMoviesLoading,
+		allTimeTopRatedMovies,
+		allTimeTopRatedMoviesLoading
+	} = useMoviesApi()
 
 	const {
-		data: allTimeTopRatedMovies,
-		isLoading: allTimeTopRatedMoviesLoading
-	} = useQuery({
-		queryKey: [moviesQueryKeys.allTimeTopRatedMovies],
-		queryFn: () => MoviesApi(URL.allTimeTopRatedMovies),
-		select: response => {
-			const slice = response.results.slice(0, 10)
-			return slice
-		}
-	})
+		trendingTVSeries,
+		trendingTVSeriesLoading,
+		popularTVSeries,
+		popularTVSeriesLoading
+	} = useSeriesApi()
 
 	return (
 		<SafeAreaView

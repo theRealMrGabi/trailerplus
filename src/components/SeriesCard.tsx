@@ -46,8 +46,8 @@ export const SeriesCard = ({ series, title, loading }: Props) => {
 							key={item.id}
 							activeOpacity={0.7}
 							onPress={() =>
-								navigation.navigate('MovieDetails', {
-									movieID: item.id
+								navigation.navigate('SeriesDetails', {
+									seriesID: item.id
 								})
 							}>
 							<Image

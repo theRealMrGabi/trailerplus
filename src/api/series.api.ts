@@ -1,9 +1,11 @@
 import { _axios } from '@/api'
-import { TVSeriesResponse } from '@/interface'
+import { TVSeriesResponse, TVSeriesDetails, MovieCredits } from '@/interface'
 
 export const tvSeriesQueryKeys = Object.freeze({
 	trendingTVSeries: 'trendingTVSeries',
-	popularTVSeries: 'popularTVSeries'
+	popularTVSeries: 'popularTVSeries',
+	seriesDetails: 'seriesDetails',
+	seriesCredits: 'seriesCredits'
 })
 
 export const TVSeriesURL = {
@@ -14,6 +16,28 @@ export const TVSeriesURL = {
 export const SeriesApi = async (url: string) => {
 	try {
 		const response: TVSeriesResponse = await _axios.get(url)
+		return response
+	} catch (error) {
+		throw error
+	}
+}
+
+export const SeriesDetailsApi = async (id: number) => {
+	try {
+		const response: TVSeriesDetails = await _axios.get(
+			`tv/${id}?language=en-US`
+		)
+		return response
+	} catch (error) {
+		throw error
+	}
+}
+
+export const SeriesCreditsApi = async (id: number) => {
+	try {
+		const response: MovieCredits = await _axios.get(
+			`tv/${id}/credits?language=en-US`
+		)
 		return response
 	} catch (error) {
 		throw error

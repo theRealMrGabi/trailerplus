@@ -5,13 +5,32 @@
  * @format
  */
 
-import {AppNavigation} from '@/navigation'
-import React from 'react'
+import React, { useState } from 'react'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-// import {AppNavigation} from './src'
+import { AppNavigation } from '@/navigation'
+import { Provider } from '@/contexts'
 
 const App = () => {
-	return <AppNavigation />
+	const [queryClient] = useState(
+		() =>
+			new QueryClient({
+				defaultOptions: {
+					queries: {
+						retry: false,
+						refetchOnWindowFocus: false
+					}
+				}
+			})
+	)
+
+	return (
+		<QueryClientProvider client={queryClient}>
+			<Provider>
+				<AppNavigation />
+			</Provider>
+		</QueryClientProvider>
+	)
 }
 
 export default App

@@ -1,0 +1,6 @@
+export { HomeScreen } from './Home.screen'
+export { MovieCategoryScreen } from './MovieCategory.screen'
+export { MovieDetailsScreen } from './MovieDetails.screen'
+export { SearchScreen } from './Search.screen'
+export { SeriesDetailsScreen } from './SeriesDetails.screen'
+export { WatchListScreen } from './WatchList.screen'

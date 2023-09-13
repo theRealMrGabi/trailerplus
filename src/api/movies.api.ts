@@ -1,5 +1,10 @@
 import { _axios } from '@/api'
-import { MoviesResponse, MovieDetails, MovieCredits } from '@/interface'
+import {
+	MoviesResponse,
+	MovieDetails,
+	MovieCredits,
+	MovieVideosResponse
+} from '@/interface'
 
 export const moviesQueryKeys = Object.freeze({
 	nowShowingMovies: 'nowShowingMovies',
@@ -8,7 +13,8 @@ export const moviesQueryKeys = Object.freeze({
 	upcomingMovies: 'upcomingMovies',
 	allTimeTopRatedMovies: 'allTimeTopRatedMovies',
 	movieDetails: 'movieDetails',
-	movieCredits: 'movieCredits'
+	movieCredits: 'movieCredits',
+	movieVideos: 'movieVideos'
 })
 
 export const URL = {
@@ -42,6 +48,23 @@ export const MovieDetailApi = async (id: number) => {
 export const MovieCreditsApi = async (id: number) => {
 	try {
 		const response: MovieCredits = await _axios.get(`movie/${id}/credits`)
+		return response
+	} catch (error) {
+		throw error
+	}
+}
+
+export const MovieVideosApi = async ({
+	id,
+	type
+}: {
+	id: number
+	type: 'movie' | 'tv'
+}) => {
+	try {
+		const response: MovieVideosResponse = await _axios.get(
+			`${type}/${id}/videos?language=en-US`
+		)
 		return response
 	} catch (error) {
 		throw error

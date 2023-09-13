@@ -1,22 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
 	Text,
 	ImageBackground,
 	View,
 	TouchableOpacity,
 	Image,
-	FlatList
+	FlatList,
+	Pressable
 } from 'react-native'
 import classNames from 'classnames'
-import { BookmarkIcon, ChevronLeftIcon } from 'react-native-heroicons/outline'
+import {
+	BookmarkIcon,
+	ChevronLeftIcon,
+	VideoCameraIcon
+} from 'react-native-heroicons/outline'
 import { useQuery } from '@tanstack/react-query'
 import ContentLoader, { Rect } from 'react-content-loader/native'
 import { useRoute } from '@react-navigation/core'
 
-import { MovieDetailApi, MovieCreditsApi, moviesQueryKeys } from '@/api'
+import {
+	MovieDetailApi,
+	MovieCreditsApi,
+	moviesQueryKeys,
+	MovieVideosApi
+} from '@/api'
 import { useUtilsContext } from '@/contexts'
 import { color, _formatNumber, _convertMinutesToHoursAndMinutes } from '@/utils'
-import { Pill, Rating } from '@/components'
+import { Pill, Rating, TrailerModal } from '@/components'
 import { useHomeStackNavigation } from '@/hooks'
 import { MovieDetails, HomeStackRouteProps } from '@/interface'
 
@@ -136,6 +146,28 @@ export const MovieDetailsScreen = () => {
 const MovieDetailsHeader = ({ movie }: { movie: MovieDetails }) => {
 	const { isDarkMode } = useUtilsContext()
 
+	const [videoID, setVideoID] = useState<string | null>(null)
+	const [modal, setModal] = useState(false)
+	const closeModal = () => setModal(false)
+
+	const movieID = movie.id
+
+	const { isLoading: movieVideosLoading } = useQuery({
+		queryKey: [moviesQueryKeys.movieVideos, movieID],
+		queryFn: () =>
+			MovieVideosApi({
+				id: movieID!,
+				type: 'movie'
+			}),
+		enabled: !!movieID,
+		select: response => {
+			const movieTrailers = response?.results?.find(
+				movieTrailer => movieTrailer.type === 'Trailer'
+			)
+			setVideoID(movieTrailers?.key || response?.results[0]?.key)
+		}
+	})
+
 	return (
 		<View
 			className={classNames('p-4 flex', {
@@ -156,7 +188,22 @@ const MovieDetailsHeader = ({ movie }: { movie: MovieDetails }) => {
 				/>
 			</View>
 
-			<Rating rating={movie?.vote_average} />
+			<View className='flex flex-row justify-between items-center my-4'>
+				<Rating rating={movie?.vote_average} />
+
+				<Pressable
+					className='flex flex-row items-center gap-4'
+					onPress={() => setModal(true)}>
+					<VideoCameraIcon />
+					<Text
+						className={classNames('font-medium', {
+							'text-trailer-ice-100': isDarkMode,
+							'text-trailer-grey-800': !isDarkMode
+						})}>
+						Watch Trailer
+					</Text>
+				</Pressable>
+			</View>
 
 			<View className='flex flex-row my-2 flex-wrap' style={{ gap: 12 }}>
 				{movie?.genres?.map(genre => (
@@ -225,6 +272,13 @@ const MovieDetailsHeader = ({ movie }: { movie: MovieDetails }) => {
 					Cast
 				</Text>
 			</View>
+
+			<TrailerModal
+				modal={modal}
+				closeModal={closeModal}
+				videoID={videoID!}
+				videoLoading={movieVideosLoading}
+			/>
 		</View>
 	)
 }

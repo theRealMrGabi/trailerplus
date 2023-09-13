@@ -5,7 +5,8 @@ export const tvSeriesQueryKeys = Object.freeze({
 	trendingTVSeries: 'trendingTVSeries',
 	popularTVSeries: 'popularTVSeries',
 	seriesDetails: 'seriesDetails',
-	seriesCredits: 'seriesCredits'
+	seriesCredits: 'seriesCredits',
+	seriesVideos: 'seriesVideos'
 })
 
 export const TVSeriesURL = {

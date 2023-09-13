@@ -12,7 +12,7 @@ import { ClockIcon } from 'react-native-heroicons/outline'
 
 import { useUtilsContext } from '@/contexts'
 import { CategoryData, color } from '@/utils'
-import { Pill, Rating } from '@/components'
+import { Rating } from '@/components'
 
 export const MovieCategoryScreen = () => {
 	const { isDarkMode } = useUtilsContext()
@@ -57,10 +57,9 @@ export const MovieCategoryScreen = () => {
 								<View
 									className='flex flex-row my-1 flex-wrap'
 									style={{ gap: 12 }}>
-									{/* eslint-disable-next-line no-unused-vars */}
-									{[...Array(3)].map((_item, i) => (
+									{/* {[...Array(3)].map((_item, i) => (
 										<Pill key={i} />
-									))}
+									))} */}
 								</View>
 
 								<View

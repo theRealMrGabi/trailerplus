@@ -23,7 +23,7 @@ export const MovieCard = ({ movie, title, loading }: Props) => {
 		<View className='my-4'>
 			<TouchableOpacity
 				className='flex flex-row gap-4 items-center mb-2'
-				onPress={() => navigation.navigate('MovieCategory')}
+				// onPress={() => navigation.navigate('MovieCategory')}
 				activeOpacity={0.5}>
 				<Text className='text-trailer-gold-300 font-bold text-lg capitalize'>
 					{title} movies
